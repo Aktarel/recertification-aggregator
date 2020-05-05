@@ -18,13 +18,13 @@
 				<div class="card-body">
 					<h5 class="card-title">My certification properties</h5>
 					<p class="card-text">
-						<b>Name</b> : Access Review for Frederic BOUNNINEAU
+						<b>Certification name</b> : Access Review for Frederic BOUNNINEAU
+					</p>
+					<p class="card-text">
+						<b>Due date</b> : {{'2020-06-21' | date:'dd-MM-yyyy'}}
 					</p>
 					<p class="card-text">
 						<b>Initial Owner</b> : Laurent MICHAUX
-					</p>
-					<p class="card-text">
-						<b>Due</b> : {{'2020-06-21' | date:'dd-MM-yyyy'}}
 					</p>
 				</div>
 			</div>
@@ -48,32 +48,42 @@
 
 					</h5>
 					<div class="row">
-						<div class="col-sm-3"><b>Total Items </b> ({{stats.approved+stats.revoked}} / {{ stats.totalCount }}) : </div>
-						<div class="col-sm-9">
+						<div class="col-sm-4"><b>Total Items </b>: ({{stats.approved+stats.revoked}}/{{ stats.totalCount }})</div>
+						<div class="col-sm-8">
 							<div class="progress" style="height: 1.5rem; font-weight: bold;">
 								<div class="progress-bar progress-bar bg-info"
 									role="progressbar"
 									[style.width.%]="getPercent(stats.approved+stats.revoked,stats.totalCount)"
 									aria-valuemin="0" aria-valuemax="100">
-									<a (click)="filterOnStatus('approved','revoked')">{{stats.approved
-										+ stats.revoked }} completed</a>
+									<a (click)="filterOnStatus('approved','revoked')">{{getPercent(stats.approved+stats.revoked,stats.totalCount)}}%</a>
 								</div>
 								<div class="progress-bar progress-bar-striped bg-warning"
 									role="progressbar"
 									[style.width.%]="getPercent(stats.empty,stats.totalCount)"
 									aria-valuemin="0" aria-valuemax="100">
-									<a (click)="filterOnStatus('empty')">{{stats.empty}}
-										undecided</a>
+									<a (click)="filterOnStatus('empty')">{{getPercent(stats.empty,stats.totalCount)}}%</a>
 								</div>
 							</div>
 						</div>
 					</div>
 					<p class="card-text">
 						<div class="row">
-							<div class="col-sm-3"><b>Displayed Items </b> : </div>
-							<div class="col-sm-9">
-								20
-							</div>
+							<div class="col-sm-4"><b>Identity reviewed </b>: (1/6)</div>
+								<div class="col-sm-8">
+									<div class="progress" style="height: 1.5rem; font-weight: bold;">
+										<div class="progress-bar progress-bar bg-info"
+											role="progressbar"
+											[style.width.%]="getPercent(1,6)"
+											aria-valuemin="0" aria-valuemax="100">
+											<a (click)="filterOnStatus('empty')"></a>
+										</div>
+									</div>
+								</div>
+						</div>
+					</p>
+					<p class="card-text">
+						<div class="row">
+							<div class="col-sm-4"><b>Data displayed</b> : 20 items</div>
 						</div>
 					</p>
 				</div>
@@ -111,7 +121,7 @@
 	</div>
 	<ng-template #tipContent>This entitlement can be asked
 	only if you are part of DESK FR/UK, blablabla </ng-template>
-	<div class="table-responsive" *ngIf="certificationItems?.length > 0">
+	<div class="table-responsive tableFixHead" *ngIf="certificationItems?.length > 0">
 		<table class="table table-striped" data-sticky-header="true">
 			<thead>
 				<tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
@@ -186,3 +196,16 @@
 		</table>
 	</div>
 </div>
+<nav class="navbar fixed-bottom navbar-dark bg-dark" [ngClass]="(stats.approved+stats.revoked==stats.totalCount)?'':'d-none'">
+	   <div class="container">
+        <ul class="nav navbar-nav mx-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="#">
+            	 <button class="btn btn-lg btn-outline-info" (click)="approve(certificationItem)" type="submit" >
+				  		<fa-icon [icon]="'thumbs-up'"></fa-icon>
+						<span class="d-none d-md-inline ">Sign my excercise</span>
+				  </button>
+            </a></li>
+        </ul>
+        </div>
+</nav>

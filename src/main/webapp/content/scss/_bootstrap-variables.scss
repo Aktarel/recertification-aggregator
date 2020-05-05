@@ -60,3 +60,34 @@ $dropdown-link-hover-bg: #343a40;
 .ng-value-container {
   padding-top: 6px !important;
 }
+
+body {
+  padding-top: 50px;
+}
+
+.tableFixHead {
+  overflow-y: auto;
+  height: 700px;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+}
+
+/* Just common table stuff. Really. */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th,
+td {
+  padding: 8px 16px;
+}
+th {
+  background: white;
+  z-index: 2;
+}
+
+.btn-group text-center {
+  z-index: 1;
+}

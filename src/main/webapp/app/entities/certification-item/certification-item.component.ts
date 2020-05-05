@@ -99,7 +99,6 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.page = page;
     this.loadAll();
   }
-
   ngOnInit() {
     this.loadAll();
     this.updateStatistics();
