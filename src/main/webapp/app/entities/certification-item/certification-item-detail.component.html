@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="certificationItem">
+            <h2><span jhiTranslate="recertificationAggregatorApp.certificationItem.detail.title">Certification Item</span> {{certificationItem.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationItem.targetAsset">Target Asset</span></dt>
+                <dd>
+                    <span>{{certificationItem.targetAsset}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationItem.targetIdentity">Target Identity</span></dt>
+                <dd>
+                    <span>{{certificationItem.targetIdentity}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationItem.created">Created</span></dt>
+                <dd>
+                    <span>{{certificationItem.created}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationItem.accountName">Account Name</span></dt>
+                <dd>
+                    <span>{{certificationItem.accountName}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationItem.status">Status</span></dt>
+                <dd>
+                    <span>{{certificationItem.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationItem.certItem">Cert Item</span></dt>
+                <dd>
+                    <div *ngIf="certificationItem.certItem">
+                        <a [routerLink]="['/certification-group', certificationItem.certItem?.id, 'view']">{{certificationItem.certItem?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/certification-item', certificationItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="recertificationAggregatorApp.certificationGroup.home.title">Certification Groups</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-certification-group" [routerLink]="['/certification-group/new']">
+            <fa-icon [icon]="'question-circle'"></fa-icon>
+            <span  jhiTranslate="">
+                Help
+            </span>
+        </button> 
+    </h2>
+    <br/>
+    <button type="button" class="btn btn-primary">
+        Opened <span class="badge badge-light">2</span>
+    </button>
+    <!-- <button type="button" class="btn btn-outline-primary">
+        Closed <span class="badge badge-dark">1</span>
+    </button>
+     -->
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="certificationGroups?.length === 0">
+        <span jhiTranslate="recertificationAggregatorApp.certificationGroup.home.notFound">No certificationGroups found</span>
+    </div>
+    
+    <div class="table-responsive" *ngIf="certificationGroups?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="accessReviewName"><span jhiTranslate="recertificationAggregatorApp.certificationGroup.accessReviewName">Access Review Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="create"><span jhiTranslate="">Due</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="ownerName"><span jhiTranslate="recertificationAggregatorApp.certificationGroup.ownerName">Owner Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="status"><span jhiTranslate="recertificationAggregatorApp.certificationGroup.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+             <th jhiSortBy="systemName"><span jhiTranslate="recertificationAggregatorApp.certificationGroup.systemName">System Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let certificationGroup of certificationGroups ;trackBy: trackId">
+                <td><a style="color: black;" href="#">{{certificationGroup.accessReviewName}}</a></td>
+                <td>{{certificationGroup.create | date:'shortDate'}}</td>
+                <td>{{certificationGroup.ownerName}}</td>
+                <td>{{certificationGroup.status}}</td>
+                 <td>{{certificationGroup.systemName}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/certification-item' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

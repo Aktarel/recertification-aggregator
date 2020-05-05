@@ -1,0 +1,188 @@
+<div>
+	<!-- <h2 id="page-heading">
+        <span jhiTranslate="recertificationAggregatorApp.certificationItem.home.title">Certification Items : Access Review for <b>Frederic BOUNINNEAU</b></span>
+
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-certification-group">
+            <fa-icon [icon]="'question-circle'"></fa-icon>
+            <span>
+                Help
+            </span>
+        </button>
+    </h2> <br /> -->
+
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">My certification properties</h5>
+					<p class="card-text">
+						<b>Name</b> : Access Review for Frederic BOUNNINEAU
+					</p>
+					<p class="card-text">
+						<b>Initial Owner</b> : Laurent MICHAUX
+					</p>
+					<p class="card-text">
+						<b>Due</b> : {{'2020-06-21' | date:'dd-MM-yyyy'}}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">
+						My remaining items &nbsp;&nbsp;&nbsp;
+						<!-- <button type="button" class="btn btn-success">
+  			Approved <span class="badge badge-light">{{stats.approved}}</span>
+		</button>
+		&nbsp;
+		<button type="button" class="btn btn-danger">
+  			Revoked <span class="badge badge-light">{{stats.revoked}}</span>
+		</button>
+		&nbsp;
+		<button type="button" class="btn btn-warning">
+  			Undecided <span class="badge badge-light">{{stats.empty}}</span>
+		</button>-->
+
+					</h5>
+					<div class="row">
+						<div class="col-sm-3"><b>Total Items </b> ({{stats.approved+stats.revoked}} / {{ stats.totalCount }}) : </div>
+						<div class="col-sm-9">
+							<div class="progress" style="height: 1.5rem; font-weight: bold;">
+								<div class="progress-bar progress-bar bg-info"
+									role="progressbar"
+									[style.width.%]="getPercent(stats.approved+stats.revoked,stats.totalCount)"
+									aria-valuemin="0" aria-valuemax="100">
+									<a (click)="filterOnStatus('approved','revoked')">{{stats.approved
+										+ stats.revoked }} completed</a>
+								</div>
+								<div class="progress-bar progress-bar-striped bg-warning"
+									role="progressbar"
+									[style.width.%]="getPercent(stats.empty,stats.totalCount)"
+									aria-valuemin="0" aria-valuemax="100">
+									<a (click)="filterOnStatus('empty')">{{stats.empty}}
+										undecided</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="card-text">
+						<div class="row">
+							<div class="col-sm-3"><b>Displayed Items </b> : </div>
+							<div class="col-sm-9">
+								20
+							</div>
+						</div>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br /> <label class="sr-only" for="inlineFormInputGroup">Filter
+		on all columns</label>
+	<div class="input-group mb-2">
+	
+		<ng-select [items]="entities" class="form-control" style="height:100px;"
+               placeholder="Type 'Application :' to search on the application" 
+               [multiple]="true" 
+               [(ngModel)]="searchString"
+               groupBy="subcategories"
+               bindLabel="title"
+          	   bindValue="id"
+               >
+               <ng-template ng-optgroup-tmp let-item="item">
+			        {{item.title}}
+			    </ng-template>
+			    <ng-template ng-option-tmp let-item="item">
+			        {{item.title}}
+			    </ng-template>
+    	</ng-select>
+	</div>
+
+	<!--<jhi-alert></jhi-alert>-->
+	<br />
+	<div class=" alert alert-warning"
+		*ngIf="certificationItems?.length === 0">
+		<span
+			jhiTranslate="recertificationAggregatorApp.certificationItem.home.notFound">No
+			certificationItems found</span>
+	</div>
+	<ng-template #tipContent>This entitlement can be asked
+	only if you are part of DESK FR/UK, blablabla </ng-template>
+	<div class="table-responsive" *ngIf="certificationItems?.length > 0">
+		<table class="table table-striped" data-sticky-header="true">
+			<thead>
+				<tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+					[callback]="reset.bind(this)">
+					<th jhiSortBy="targetApplicationName"><span
+						jhiTranslate="recertificationAggregatorApp.certificationItem.applicationName">Application</span>
+						<fa-icon [icon]="'sort'"></fa-icon></th>
+					<th jhiSortBy="targetAsset"><span
+						jhiTranslate="recertificationAggregatorApp.certificationItem.targetAsset">Target
+							Asset</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+					<th jhiSortBy="targetIdentity"><span
+						jhiTranslate="recertificationAggregatorApp.certificationItem.targetIdentity">Target
+							Identity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+					<th jhiSortBy="accountName"><span
+						jhiTranslate="recertificationAggregatorApp.certificationItem.accountName">Account
+							Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+					<th>
+						<!-- <div class="form-row">
+                                <div class="col text-center">
+                                    Select All
+                                </div>
+                            </div> -->
+						<div class="form-row">
+							<div class="col text-center">
+								<button type="submit" class="btn btn-success btn-sm"
+									name="approveAllBtn" (click)="approveAll(searchString)">
+									<fa-icon [icon]="'thumbs-up'"></fa-icon>
+									<span class="d-none d-md-inline"></span>
+								</button>
+							</div>
+							<div class="col text-center">
+								<button type="submit" name="revokeAllBtn"
+									(click)="revokeAll(searchString)" class="btn btn-danger btn-sm">
+									<fa-icon [icon]="'thumbs-down'"></fa-icon>
+									<span class="d-none d-md-inline"></span>
+								</button>
+							</div>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tbody infinite-scroll (scrolled)="loadPage(page + 1)"
+				[infiniteScrollDisabled]="page >= links['last']"
+				[infiniteScrollDistance]="0">
+				<tr
+					*ngFor="let certificationItem of certificationItems | filter : ['targetApplicationName','targetAsset','targetIdentity','accountName'] : searchString : filterStatus; let i = index">
+					<td>{{certificationItem.targetApplicationName}}</td>
+					<td style="width: 30%"><span placement="right"
+						[ngbTooltip]="tipContent">{{certificationItem.targetAsset}}</span>
+					</td>
+					<td>{{certificationItem.targetIdentity}}</td>
+					<td>{{certificationItem.accountName}}</td>
+					<td class="text-center"><input type="hidden"
+						data-id="{{certificationItem.id}}" name="decision"
+						data-decision-value="" />
+						<div class="btn-group text-center">
+							<button (click)="approve(certificationItem)" type="submit"
+								[ngClass]="(certificationItem.certDecision=='approved')?' btn btn-sm btn-success':'btn btn-sm btn-outline-success'">
+								<fa-icon [icon]="'thumbs-up'"></fa-icon>
+								<span class="d-none d-md-inline"
+									jhiTranslate="recertificationAggregatorApp.certificationItem.actions.approve">Approve</span>
+							</button>
+							<button (click)="revoke(certificationItem)" type="submit"
+								[ngClass]="(certificationItem.certDecision=='revoked')?'btn btn-sm btn-danger':'btn btn-sm btn-outline-danger'">
+								<fa-icon [icon]="'thumbs-down'"></fa-icon>
+								<span class="d-none d-md-inline"
+									jhiTranslate="recertificationAggregatorApp.certificationItem.actions.revoke">Revoke</span>
+							</button>
+						</div></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

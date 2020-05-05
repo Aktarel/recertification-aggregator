@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RecertificationAggregatorSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
-
 @NgModule({
   imports: [RecertificationAggregatorSharedCommonModule],
   declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],

@@ -1,0 +1,32 @@
+{
+  "recertificationAggregatorApp": {
+    "certificationItem": {
+      "home": {
+        "title": "Mes items de Certification",
+        "createLabel": "Créer un nouveau Certification Item",
+        "createOrEditLabel": "Créer ou éditer un Certification Item",
+        "notFound": "Aucun Certification Item trouvé"
+      },
+      "created": "Un nouveau Certification Item a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Certification Item avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Certification Item avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Certification Item {{ id }} ?"
+      },
+      "detail": {
+        "title": "Certification Item"
+      },
+      "applicationName": "Application",
+      "targetAsset": "Droit",
+      "targetIdentity": "Identité",
+      "created": "Date création",
+      "accountName": "Compte",
+      "status": "Status",
+      "certItem": "Cert Item",
+      "actions": {
+        "approve": "Approuver",
+        "revoke": "Revoquer"
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
 @import 'bootstrap-variables';
 @import '~bootstrap/scss/functions';
-@import '~bootswatch/dist/yeti/variables';
 @import '~bootstrap/scss/variables';
+@import '~@ng-select/ng-select/themes/material.theme.css';
 
+//@import '~bootswatch/dist/minty/bootswatch';
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
-
 body,
 h1,
 h2,
@@ -16,7 +16,7 @@ h4 {
 }
 
 a {
-  color: #533f03;
+  color: white;
   font-weight: bold;
 }
 
@@ -168,6 +168,15 @@ ui bootstrap tweaks
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.fixed_header tbody {
+  display: block;
+  overflow: auto;
+  height: 200px;
+  width: 100%;
+}
+.fixed_header thead tr {
+  display: block;
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */

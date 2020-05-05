@@ -1,0 +1,40 @@
+/**
+ * Represent a certication containing certification items to be reviewed
+ * @author nicolas
+ */
+entity CertificationGroup {
+  systemName String,
+  accessReviewName String,
+  create Instant,
+  ownerName String,
+  status String
+}
+
+/**
+ * Represent a single item of certification group
+ * @author nicolas
+ */
+entity CertificationItem {
+  targetAsset String,
+  targetIdentity String,
+  created Instant,
+  accountName String,
+  status String
+}
+/**
+ * Represent certification action containing the decision on the item
+ * Approve / Revok 
+ * Null = Undecided
+ * @author nicolas
+ */
+entity CertificationAction {
+  completed Instant,
+  decision String
+}
+
+relationship ManyToOne {
+  CertificationItem{certItem} to CertificationGroup
+  CertificationAction{action} to CertificationItem
+}
+
+paginate CertificationItem,CertificationGroup with infinite-scroll

@@ -1,0 +1,32 @@
+{
+  "recertificationAggregatorApp": {
+    "certificationItem": {
+      "home": {
+        "title": "Certification Items",
+        "createLabel": "Create a new Certification Item",
+        "createOrEditLabel": "Create or edit a Certification Item",
+        "notFound": "No Certification Item found"
+      },
+      "created": "A new Certification Item is created with identifier {{ param }}",
+      "updated": "A Certification Item is updated with identifier {{ param }}",
+      "deleted": "A Certification Item is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Certification Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Certification Item"
+      },
+      "applicationName": "Application",
+      "targetAsset": "Entitlement",
+      "targetIdentity": "Identity",
+      "created": "Created",
+      "accountName": "Account Name",
+      "status": "Status",
+      "certItem": "Cert Item",
+      "actions": {
+        "approve": "Approve",
+        "revoke": "Revoke"
+      }
+    }
+  }
+}

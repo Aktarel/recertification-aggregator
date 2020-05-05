@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-certification-item-heading" jhiTranslate="recertificationAggregatorApp.certificationItem.home.createOrEditLabel">Create or edit a Certification Item</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="recertificationAggregatorApp.certificationItem.targetAsset" for="field_targetAsset">Target Asset</label>
+                    <input type="text" class="form-control" name="targetAsset" id="field_targetAsset"
+                           formControlName="targetAsset"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="recertificationAggregatorApp.certificationItem.targetIdentity" for="field_targetIdentity">Target Identity</label>
+                    <input type="text" class="form-control" name="targetIdentity" id="field_targetIdentity"
+                           formControlName="targetIdentity"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="recertificationAggregatorApp.certificationItem.created" for="field_created">Created</label>
+                    <div class="d-flex">
+                        <input id="field_created" type="datetime-local" class="form-control" name="created" formControlName="created" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="recertificationAggregatorApp.certificationItem.accountName" for="field_accountName">Account Name</label>
+                    <input type="text" class="form-control" name="accountName" id="field_accountName"
+                           formControlName="accountName"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="recertificationAggregatorApp.certificationItem.status" for="field_status">Status</label>
+                    <input type="text" class="form-control" name="status" id="field_status"
+                           formControlName="status"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="recertificationAggregatorApp.certificationItem.certItem" for="field_certItem">Cert Item</label>
+                    <select class="form-control" id="field_certItem" name="certItem" formControlName="certItem">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="certificationGroupOption.id === editForm.get('certItem').value?.id ? editForm.get('certItem').value : certificationGroupOption" *ngFor="let certificationGroupOption of certificationgroups; trackBy: trackCertificationGroupById">{{certificationGroupOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="certificationGroup">
+            <h2><span jhiTranslate="recertificationAggregatorApp.certificationGroup.detail.title">Certification Group</span> {{certificationGroup.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationGroup.systemName">System</span></dt>
+                <dd>
+                    <span>{{certificationGroup.systemName}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationGroup.accessReviewName">Access Review Name</span></dt>
+                <dd>
+                    <span>{{certificationGroup.accessReviewName}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationGroup.create">Create</span></dt>
+                <dd>
+                    <span>{{certificationGroup.create}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationGroup.ownerName">Owner Name</span></dt>
+                <dd>
+                    <span>{{certificationGroup.ownerName}}</span>
+                </dd>
+                <dt><span jhiTranslate="recertificationAggregatorApp.certificationGroup.status">Status</span></dt>
+                <dd>
+                    <span>{{certificationGroup.status}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/certification-group', certificationGroup.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

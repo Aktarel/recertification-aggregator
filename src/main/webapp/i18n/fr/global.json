@@ -1,12 +1,16 @@
 {
   "global": {
-    "title": "RecertificationAggregator",
+    "title": "Certification",
     "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
     "menu": {
-      "home": "Accueil",
-      "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+      "home": "Mes certifications",
+      "accessrequest": "Access requests",
+      "certification": "Certifications",
       "entities": {
         "main": "Entités",
+        "certificationGroup": "Mes Certifications",
+        "certificationItem": "Certification Item",
+        "certificationAction": "Certification Action",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -131,5 +135,5 @@
     "idexists": "Une nouvelle entité {{entityName}} ne peut pas avoir d'ID !",
     "idnull": "Invalid ID"
   },
-  "footer": "Ceci est votre pied de page"
+  "footer": ""
 }

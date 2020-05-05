@@ -17,7 +17,8 @@
       "hystrix": "Hystrix",
       "diskSpace": "Disk space",
       "mail": "Email",
-      "db": "Database"
+      "db": "Database",
+      "clientConfigServer": "HealthConfig"
     },
     "table": {
       "service": "Service name",

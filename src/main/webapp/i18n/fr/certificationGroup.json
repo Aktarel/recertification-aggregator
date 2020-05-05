@@ -1,0 +1,26 @@
+{
+  "recertificationAggregatorApp": {
+    "certificationGroup": {
+      "home": {
+        "title": "Mes certifications",
+        "createLabel": "Créer un nouveau Certification Group",
+        "createOrEditLabel": "Créer ou éditer un Certification Group",
+        "notFound": "Aucun Certification Group trouvé"
+      },
+      "created": "Un nouveau Certification Group a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Certification Group avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Certification Group avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Certification Group {{ id }} ?"
+      },
+      "detail": {
+        "title": "Certification Group"
+      },
+      "systemName": "System",
+      "accessReviewName": "Access Review",
+      "create": "Create",
+      "ownerName": "Owner",
+      "status": "Status"
+    }
+  }
+}

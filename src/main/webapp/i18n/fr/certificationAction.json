@@ -1,0 +1,24 @@
+{
+  "recertificationAggregatorApp": {
+    "certificationAction": {
+      "home": {
+        "title": "CertificationActions",
+        "createLabel": "Créer un nouveau Certification Action",
+        "createOrEditLabel": "Créer ou éditer un Certification Action",
+        "notFound": "Aucun Certification Action trouvé"
+      },
+      "created": "Un nouveau Certification Action a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Certification Action avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Certification Action avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Certification Action {{ id }} ?"
+      },
+      "detail": {
+        "title": "Certification Action"
+      },
+      "completed": "Completed",
+      "decision": "Decision",
+      "action": "Action"
+    }
+  }
+}
