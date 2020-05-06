@@ -83,7 +83,7 @@
 					</p>
 					<p class="card-text">
 						<div class="row">
-							<div class="col-sm-4"><b>Data displayed</b> : 20 items</div>
+							<div class="col-sm-4"><b>Data displayed</b> : 50 items</div>
 						</div>
 					</p>
 				</div>
@@ -93,9 +93,8 @@
 	<br /> <label class="sr-only" for="inlineFormInputGroup">Filter
 		on all columns</label>
 	<div class="input-group mb-2">
-	
-		<ng-select [items]="entities" class="form-control" style="height:100px;"
-               placeholder="Type 'Application :' to search on the application" 
+		<ng-select [items]="entities" class="form-control" style="height:75px;"
+               placeholder="Search on multiple column" 
                [multiple]="true" 
                [(ngModel)]="searchString"
                groupBy="subcategories"

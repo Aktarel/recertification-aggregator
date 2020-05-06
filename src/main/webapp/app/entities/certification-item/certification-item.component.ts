@@ -110,7 +110,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
       {
         id: 'p1',
         title: 'Application',
-        subcategories: [{ title: 'COKPIT', id: 'app1' }, { title: 'Service Now', id: 'app2' }]
+        subcategories: [{ title: 'COKPIT', id: 'app1' }, { title: 'Service Now', id: 'app2' }, { title: '//sharedrive', id: 'app3' }]
       },
       {
         id: 'p2',
