@@ -1,17 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Subscription, ObservableLike } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs';
 
-import { ICertificationItem, Statistics } from 'app/shared/model/certification-item.model';
+import { ICertificationItem, Statistics, OptionGroup } from 'app/shared/model/certification-item.model';
 import { AccountService } from 'app/core';
 import { FilterPipe } from 'app/shared/util/search.pipe';
 import { CountPercentagePipe } from 'app/shared/util/count-percentage.pipe';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { CertificationItemService } from './certification-item.service';
+import { CertificationGroup } from 'app/shared/model/certification-group.model';
 
 @Component({
   selector: 'jhi-certification-item',
@@ -31,7 +32,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
   isSaving: boolean;
   stats: Statistics;
   filterStatus: string[];
-  entities: any = [];
+  optionGroups: OptionGroup[];
 
   constructor(
     protected certificationItemService: CertificationItemService,
@@ -53,7 +54,6 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.predicate = 'id';
     this.reverse = true;
     this.filterStatus = [];
-    this.entities = [];
   }
   filterOnStatus(status: string, searchString: string) {
     var indexOfStatus = this.filterStatus.indexOf(status);
@@ -100,31 +100,21 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
   ngOnInit() {
+    //Mystere et boule de gomme va savoir pourquoi ça charge pas
     this.loadAll();
     this.updateStatistics();
     this.accountService.identity().then(account => {
       this.currentAccount = account;
     });
     this.registerChangeInCertificationItems();
-    this.entities = [
-      {
-        id: 'p1',
-        title: 'Application',
-        subcategories: [{ title: 'COKPIT', id: 'app1' }, { title: 'Service Now', id: 'app2' }, { title: '//sharedrive', id: 'app3' }]
-      },
-      {
-        id: 'p2',
-        title: 'Entitlement',
-        subcategories: [{ title: 'Administrator', id: 'ent1' }, { title: 'Read Only', id: 'ent2' }]
-      },
-      {
-        id: 'p3',
-        title: 'Account',
-        subcategories: [{ title: 'c98847', id: 'c98847' }, { title: '544947', id: '544947' }]
-      }
-    ];
+    this.certificationItemService.getOptionGroups().subscribe(res => {
+      this.optionGroups = res.body;
+      this.optionGroups.push({ id: 11, type: 'status', name: 'Unresolved' });
+      this.optionGroups.push({ id: 12, type: 'status', name: 'Revoked' });
+      this.optionGroups.push({ id: 13, type: 'status', name: 'Approved' });
+    });
   }
-
+  ngOnchange() {}
   ngOnDestroy() {
     this.eventManager.destroy(this.eventSubscriber);
   }
@@ -233,5 +223,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.stats.revoked = res.revoked;
     this.stats.empty = res.empty;
     this.stats.totalCount = res.totalCount;
+    this.stats.totalIdentities = res.totalIdentities;
+    this.stats.totalIdentityReviewed = res.totalIdentityReviewed;
   }
 }

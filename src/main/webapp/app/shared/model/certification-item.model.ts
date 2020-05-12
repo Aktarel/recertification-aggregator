@@ -18,6 +18,14 @@ export interface Statistics {
   approved?: number;
   empty?: number;
   totalCount?: number;
+  totalIdentityReviewed?: number;
+  totalIdentities?: number;
+}
+
+export interface OptionGroup {
+  id?: number;
+  name?: string;
+  type?: string;
 }
 
 export class CertificationItem implements ICertificationItem {
@@ -34,6 +42,17 @@ export class CertificationItem implements ICertificationItem {
   ) {}
 }
 
-export class Statistic {
-  constructor(public revoked?: number, public approved?: number, public empty?: number, public totalCount?: number) {}
+export class Statistic implements Statistics {
+  constructor(
+    public revoked?: number,
+    public approved?: number,
+    public empty?: number,
+    public totalCount?: number,
+    public totalIdentities?: number,
+    public totalIdentityReviewed?: number
+  ) {}
+}
+
+export class OptionGroup implements OptionGroup {
+  constructor(public id?: number, public name?: string, public type?: string) {}
 }

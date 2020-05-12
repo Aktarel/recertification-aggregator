@@ -7,11 +7,12 @@ import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
-import { ICertificationItem, Statistic } from 'app/shared/model/certification-item.model';
+import { ICertificationItem, Statistic, OptionGroup } from 'app/shared/model/certification-item.model';
 
 type EntityResponseType = HttpResponse<ICertificationItem>;
 type EntityArrayResponseType = HttpResponse<ICertificationItem[]>;
 type StatisticResponseType = HttpResponse<Statistic>;
+type OptionGroupResponseType = HttpResponse<OptionGroup[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CertificationItemService {
@@ -54,6 +55,11 @@ export class CertificationItemService {
     return this.http
       .get<Statistic>(`${SERVER_API_URL + 'api/certification-items/statistics'}`, { observe: 'response' })
       .pipe(map((res: StatisticResponseType) => res));
+  }
+  getOptionGroups(): Observable<OptionGroupResponseType> {
+    return this.http
+      .get<OptionGroup[]>(`${SERVER_API_URL + 'api/certification-items/entities'}`, { observe: 'response' })
+      .pipe(map((res: OptionGroupResponseType) => res));
   }
 
   protected convertDateFromClient(certificationItem: ICertificationItem): ICertificationItem {

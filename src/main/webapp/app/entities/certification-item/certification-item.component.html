@@ -18,7 +18,7 @@
 				<div class="card-body">
 					<h5 class="card-title">My certification properties</h5>
 					<p class="card-text">
-						<b>Certification name</b> : Access Review for Frederic BOUNNINEAU
+						<b>Type</b> : Reassignement
 					</p>
 					<p class="card-text">
 						<b>Due date</b> : {{'2020-06-21' | date:'dd-MM-yyyy'}}
@@ -48,7 +48,7 @@
 
 					</h5>
 					<div class="row">
-						<div class="col-sm-4"><b>Total Items </b>: ({{stats.approved+stats.revoked}}/{{ stats.totalCount }})</div>
+						<div class="col-sm-4"><b>Total Entitlements </b>: ({{stats.approved+stats.revoked}}/{{ stats.totalCount }})</div>
 						<div class="col-sm-8">
 							<div class="progress" style="height: 1.5rem; font-weight: bold;">
 								<div class="progress-bar progress-bar bg-info"
@@ -57,33 +57,29 @@
 									aria-valuemin="0" aria-valuemax="100">
 									<a (click)="filterOnStatus('approved','revoked')">{{getPercent(stats.approved+stats.revoked,stats.totalCount)}}%</a>
 								</div>
-								<div class="progress-bar progress-bar-striped bg-warning"
+								<!-- <div class="progress-bar progress-bar-striped bg-warning"
 									role="progressbar"
 									[style.width.%]="getPercent(stats.empty,stats.totalCount)"
 									aria-valuemin="0" aria-valuemax="100">
 									<a (click)="filterOnStatus('empty')">{{getPercent(stats.empty,stats.totalCount)}}%</a>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
 					<p class="card-text">
 						<div class="row">
-							<div class="col-sm-4"><b>Identity reviewed </b>: (1/6)</div>
+							<div class="col-sm-4"><b>Total Identities</b>: ({{stats.totalIdentityReviewed}}/{{stats.totalIdentities}})</div>
 								<div class="col-sm-8">
 									<div class="progress" style="height: 1.5rem; font-weight: bold;">
 										<div class="progress-bar progress-bar bg-info"
 											role="progressbar"
-											[style.width.%]="getPercent(1,6)"
+											[style.width.%]="getPercent(stats.totalIdentityReviewed,stats.totalIdentities)"
 											aria-valuemin="0" aria-valuemax="100">
 											<a (click)="filterOnStatus('empty')"></a>
+												{{stats.totalIdentityReviewed}} identities
 										</div>
 									</div>
 								</div>
-						</div>
-					</p>
-					<p class="card-text">
-						<div class="row">
-							<div class="col-sm-4"><b>Data displayed</b> : 50 items</div>
 						</div>
 					</p>
 				</div>
@@ -93,19 +89,22 @@
 	<br /> <label class="sr-only" for="inlineFormInputGroup">Filter
 		on all columns</label>
 	<div class="input-group mb-2">
-		<ng-select [items]="entities" class="form-control" style="height:75px;"
-               placeholder="Search on multiple column" 
+		<ng-select [items]="optionGroups" class="form-control" style="height:75px;"
+               placeholder="Search on multiple column"
                [multiple]="true" 
                [(ngModel)]="searchString"
-               groupBy="subcategories"
-               bindLabel="title"
+               groupBy="type"
+               bindLabel="name"
           	   bindValue="id"
+          	   [closeOnSelect]="false"
+          	   [selectableGroupAsModel]="false"
+          	   [selectableGroup]="true"
                >
                <ng-template ng-optgroup-tmp let-item="item">
-			        {{item.title}}
+			        <span [ngClass]="(item.type=='application') ? 'red' : 'grey'" >{{item.type}}</span>
 			    </ng-template>
 			    <ng-template ng-option-tmp let-item="item">
-			        {{item.title}}
+			        {{item.name}}
 			    </ng-template>
     	</ng-select>
 	</div>
@@ -125,18 +124,18 @@
 			<thead>
 				<tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
 					[callback]="reset.bind(this)">
-					<th jhiSortBy="targetApplicationName"><span
-						jhiTranslate="recertificationAggregatorApp.certificationItem.applicationName">Application</span>
-						<fa-icon [icon]="'sort'"></fa-icon></th>
-					<th jhiSortBy="targetAsset"><span
-						jhiTranslate="recertificationAggregatorApp.certificationItem.targetAsset">Target
-							Asset</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 					<th jhiSortBy="targetIdentity"><span
 						jhiTranslate="recertificationAggregatorApp.certificationItem.targetIdentity">Target
 							Identity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 					<th jhiSortBy="accountName"><span
 						jhiTranslate="recertificationAggregatorApp.certificationItem.accountName">Account
 							Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+					<th jhiSortBy="targetApplicationName"><span
+						jhiTranslate="recertificationAggregatorApp.certificationItem.applicationName">Application</span>
+						<fa-icon [icon]="'sort'"></fa-icon></th>
+					<th jhiSortBy="targetAsset"><span
+						jhiTranslate="recertificationAggregatorApp.certificationItem.targetAsset">Target
+							Asset</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 					<th>
 						<!-- <div class="form-row">
                                 <div class="col text-center">
@@ -167,12 +166,13 @@
 				[infiniteScrollDistance]="0">
 				<tr
 					*ngFor="let certificationItem of certificationItems | filter : ['targetApplicationName','targetAsset','targetIdentity','accountName'] : searchString : filterStatus; let i = index">
+					<td>{{certificationItem.targetIdentity}}</td>
+					<td>{{certificationItem.accountName}}</td>
 					<td>{{certificationItem.targetApplicationName}}</td>
 					<td style="width: 30%"><span placement="right"
 						[ngbTooltip]="tipContent">{{certificationItem.targetAsset}}</span>
 					</td>
-					<td>{{certificationItem.targetIdentity}}</td>
-					<td>{{certificationItem.accountName}}</td>
+					
 					<td class="text-center"><input type="hidden"
 						data-id="{{certificationItem.id}}" name="decision"
 						data-decision-value="" />
