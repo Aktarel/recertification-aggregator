@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
-
 import { RecertificationAggregatorSharedModule } from 'app/shared';
 import {
   CertificationItemComponent,
@@ -13,7 +12,8 @@ import {
   certificationItemRoute,
   certificationItemPopupRoute,
   FilterPipe,
-  CountPercentagePipe
+  CountPercentagePipe,
+  SigningModalComponent
 } from './';
 
 const ENTITY_STATES = [...certificationItemRoute, ...certificationItemPopupRoute];
@@ -27,13 +27,15 @@ const ENTITY_STATES = [...certificationItemRoute, ...certificationItemPopupRoute
     CertificationItemDeleteDialogComponent,
     CertificationItemDeletePopupComponent,
     FilterPipe,
-    CountPercentagePipe
+    CountPercentagePipe,
+    SigningModalComponent
   ],
   entryComponents: [
     CertificationItemComponent,
     CertificationItemUpdateComponent,
     CertificationItemDeleteDialogComponent,
-    CertificationItemDeletePopupComponent
+    CertificationItemDeletePopupComponent,
+    SigningModalComponent
   ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -4,6 +4,8 @@ import { Subscription, ObservableLike } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SigningModalComponent } from './signing-modal.component';
 
 import { ICertificationItem, Statistics, OptionGroup } from 'app/shared/model/certification-item.model';
 import { AccountService } from 'app/core';
@@ -33,6 +35,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
   stats: Statistics;
   filterStatus: string[];
   optionGroups: OptionGroup[];
+  signingModal: NgbModal;
 
   constructor(
     protected certificationItemService: CertificationItemService,
@@ -41,7 +44,8 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     protected parseLinks: JhiParseLinks,
     protected accountService: AccountService,
     protected filterPipe: FilterPipe,
-    protected countPercentagePipe: CountPercentagePipe
+    protected countPercentagePipe: CountPercentagePipe,
+    private modalService: NgbModal
   ) {
     this.isSaving = false;
     this.certificationItems = [];
@@ -100,7 +104,6 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
   ngOnInit() {
-    //Mystere et boule de gomme va savoir pourquoi ça charge pas
     this.loadAll();
     this.updateStatistics();
     this.accountService.identity().then(account => {
@@ -113,6 +116,18 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
       this.optionGroups.push({ id: 12, type: 'status', name: 'Revoked' });
       this.optionGroups.push({ id: 13, type: 'status', name: 'Approved' });
     });
+  }
+
+  openModal() {
+    const modalRef = this.modalService.open(SigningModalComponent);
+    modalRef.result.then(
+      result => {
+        // Left blank intentionally, nothing to do here
+      },
+      reason => {
+        // Left blank intentionally, nothing to do here
+      }
+    );
   }
   ngOnchange() {}
   ngOnDestroy() {

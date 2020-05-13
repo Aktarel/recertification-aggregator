@@ -6,3 +6,4 @@ export * from './certification-item.component';
 export * from './certification-item.route';
 export * from 'app/shared/util/search.pipe';
 export * from 'app/shared/util/count-percentage.pipe';
+export * from './signing-modal.component';

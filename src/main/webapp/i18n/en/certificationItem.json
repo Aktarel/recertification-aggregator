@@ -1,6 +1,13 @@
 {
   "recertificationAggregatorApp": {
     "certificationItem": {
+      "signing": {
+        "modal": {
+          "message": "Are you sure you want to sign your whole recertification exercise ? Modifications will be saved and nothing can be made !",
+          "title": "Sign your certification",
+          "submit": "I sign with my own blood"
+        }
+      },
       "home": {
         "title": "Certification Items",
         "createLabel": "Create a new Certification Item",
@@ -20,7 +27,7 @@
       "targetAsset": "Entitlement",
       "targetIdentity": "Identity",
       "created": "Created",
-      "accountName": "Account Name",
+      "accountName": "Account",
       "status": "Status",
       "certItem": "Cert Item",
       "actions": {

@@ -1,6 +1,13 @@
 {
   "recertificationAggregatorApp": {
     "certificationItem": {
+      "signing": {
+        "modal": {
+          "message": "Attention : êtes vous sur de vouloir signer votre recertification ? Il ne sera plus possible de revenir sur une decision dans l'outil.",
+          "title": "Signer votre recertification",
+          "submit": "Je signe de mon sang"
+        }
+      },
       "home": {
         "title": "Mes items de Certification",
         "createLabel": "Créer un nouveau Certification Item",
