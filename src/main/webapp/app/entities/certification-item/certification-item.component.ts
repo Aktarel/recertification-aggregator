@@ -73,7 +73,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
 
     this.filterPipe.transform(
       this.certificationItems,
-      ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName'],
+      ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
       searchString,
       this.filterStatus
     );
@@ -112,9 +112,9 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.registerChangeInCertificationItems();
     this.certificationItemService.getOptionGroups().subscribe(res => {
       this.optionGroups = res.body;
-      this.optionGroups.push({ id: 11, type: 'status', name: 'Unresolved' });
-      this.optionGroups.push({ id: 12, type: 'status', name: 'Revoked' });
-      this.optionGroups.push({ id: 13, type: 'status', name: 'Approved' });
+      this.optionGroups.push({ id: 11, type: 'Status', name: 'Unresolved' });
+      this.optionGroups.push({ id: 12, type: 'Status', name: 'Revoked' });
+      this.optionGroups.push({ id: 13, type: 'Status', name: 'Approved' });
     });
   }
 
@@ -142,7 +142,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.filterPipe
       .transform(
         this.certificationItems,
-        ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName'],
+        ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
         searchString,
         this.filterStatus
       )
@@ -160,7 +160,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.filterPipe
       .transform(
         this.certificationItems,
-        ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName'],
+        ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
         searchString,
         this.filterStatus
       )

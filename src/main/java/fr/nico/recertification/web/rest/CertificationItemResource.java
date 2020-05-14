@@ -151,12 +151,11 @@ public class CertificationItemResource {
 		Optional<List> identities = certificationItemRepository.listIdentities();
 		List<OptionGroup> optionGroups = new ArrayList<OptionGroup>();
 		int i =0;
-		
-		for (Object application : apps.get()) {
-			optionGroups.add(new OptionGroup(i++, (String)application, "application"));
-		}
 		for (Object identity: identities.get()) {
-			optionGroups.add(new OptionGroup(i++, (String)identity, "identity"));
+			optionGroups.add(new OptionGroup(i++, (String)identity, "Identity"));
+		}
+		for (Object application : apps.get()) {
+			optionGroups.add(new OptionGroup(i++, (String)application, "Application"));
 		}
 		return new ResponseEntity<>(optionGroups, HttpStatus.OK);
 	}

@@ -54,7 +54,7 @@
 								<div class="progress-bar progress-bar bg-info"
 									role="progressbar"
 									[style.width.%]="getPercent(stats.approved+stats.revoked,stats.totalCount)"
-									aria-valuemin="0" aria-valuemax="100">
+									aria-valuemin="0" *ngIf="stats.approved+stats.revoked > 0" aria-valuemax="100">
 									<a (click)="filterOnStatus('approved','revoked')">{{getPercent(stats.approved+stats.revoked,stats.totalCount)}}%</a>
 								</div>
 								<!-- <div class="progress-bar progress-bar-striped bg-warning"
@@ -75,8 +75,9 @@
 											role="progressbar"
 											[style.width.%]="getPercent(stats.totalIdentityReviewed,stats.totalIdentities)"
 											aria-valuemin="0" aria-valuemax="100">
-											<a (click)="filterOnStatus('empty')"></a>
+											<a (click)="filterOnStatus('empty')" *ngIf="stats?.totalIdentityReviewed > 0">
 												{{stats.totalIdentityReviewed}} identities
+											</a>
 										</div>
 									</div>
 								</div>
@@ -95,13 +96,15 @@
                [(ngModel)]="searchString"
                groupBy="type"
                bindLabel="name"
-          	   bindValue="id"
+          	   bindValue="name"
           	   [closeOnSelect]="false"
           	   [selectableGroupAsModel]="false"
           	   [selectableGroup]="true"
                >
                <ng-template ng-optgroup-tmp let-item="item">
-			        <span [ngClass]="(item.type=='application') ? 'red' : 'grey'" >{{item.type}}</span>
+			        <span [ngClass]="(item.type=='application') ? 'red' : 'grey'" >
+			        	{{item.type}}
+			       	</span>
 			    </ng-template>
 			    <ng-template ng-option-tmp let-item="item">
 			        {{item.name}}
@@ -165,7 +168,7 @@
 				[infiniteScrollDisabled]="page >= links['last']"
 				[infiniteScrollDistance]="0">
 				<tr
-					*ngFor="let certificationItem of certificationItems | filter : ['targetApplicationName','targetAsset','targetIdentity','accountName'] : searchString : filterStatus; let i = index">
+					*ngFor="let certificationItem of certificationItems | filter : ['targetApplicationName','targetAsset','targetIdentity','accountName', 'certDecision'] : searchString : filterStatus; let i = index">
 					<td>{{certificationItem.targetIdentity}}</td>
 					<td>{{certificationItem.accountName}}</td>
 					<td>{{certificationItem.targetApplicationName}}</td>
