@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { AuthServerProvider } from 'app/core/auth/auth-jwt.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class LoginService {
   constructor(private accountService: AccountService, private authServerProvider: AuthServerProvider) {}
 
