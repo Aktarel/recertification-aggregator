@@ -48,7 +48,6 @@ public class CacheConfiguration {
             createCache(cm, fr.nico.recertification.domain.User.class.getName() + ".authorities");
             createCache(cm, fr.nico.recertification.domain.CertificationGroup.class.getName());
             createCache(cm, fr.nico.recertification.domain.CertificationItem.class.getName());
-            createCache(cm, fr.nico.recertification.domain.CertificationAction.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -59,7 +59,7 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     this.reverse = true;
     this.filterStatus = [];
   }
-  filterOnStatus(status: string, searchString: string) {
+  filterOnStatus(status: string, searchString: string[]) {
     var indexOfStatus = this.filterStatus.indexOf(status);
     if (indexOfStatus == -1) {
       if (status === 'empty') {
@@ -70,11 +70,10 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     } else {
       this.filterStatus.splice(indexOfStatus, 1);
     }
-    let searchStringAsArray = JSON.parse('[' + searchString + ']');
     this.filterPipe.transform(
       this.certificationItems,
       ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
-      searchStringAsArray,
+      searchString,
       this.filterStatus
     );
   }
@@ -137,14 +136,13 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
   trackId(index: number, item: ICertificationItem) {
     return item.id;
   }
-  approveAll(searchString: string) {
+  approveAll(searchString: string[]) {
     console.log('revokeAll');
-    let searchStringAsArray = JSON.parse('[' + searchString + ']');
     this.filterPipe
       .transform(
         this.certificationItems,
         ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
-        searchStringAsArray,
+        searchString,
         this.filterStatus
       )
       .forEach(element => {
@@ -156,14 +154,13 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
         this.subscribeToSaveResponse(this.certificationItemService.update(element));
       });
   }
-  revokeAll(searchString: string) {
+  revokeAll(searchString: string[]) {
     console.log('approveAll');
-    let searchStringAsArray = JSON.parse('[' + searchString + ']');
     this.filterPipe
       .transform(
         this.certificationItems,
         ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
-        searchStringAsArray,
+        searchString,
         this.filterStatus
       )
       .forEach(element => {

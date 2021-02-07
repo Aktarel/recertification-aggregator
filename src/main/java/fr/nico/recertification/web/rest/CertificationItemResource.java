@@ -17,6 +17,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -114,11 +118,11 @@ public class CertificationItemResource {
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
 	 *         of certificationItems in body.
 	 */
-	@GetMapping("/certification-items")
-	public ResponseEntity<List<CertificationItem>> getAllCertificationItems(Pageable pageable,
+	@GetMapping("/certification-items/{certGroupId}")
+	public ResponseEntity<List<CertificationItem>> getAllCertificationItems(@PathVariable(name ="certGroupId") String certGroupId,Pageable pageable,
 			@RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
 		log.debug("REST request to get a page of CertificationItems");
-		Page<CertificationItem> page = certificationItemRepository.findAll(pageable);
+		Page<CertificationItem> page = certificationItemRepository.findAllByCertGroup(certGroupId,pageable);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
 		return ResponseEntity.ok().headers(headers).body(page.getContent());
 	}

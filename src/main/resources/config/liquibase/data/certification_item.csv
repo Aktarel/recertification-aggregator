@@ -1,11 +1,11 @@
-id;target_application;target_asset;target_identity;created;account_name;cert_decision
-1;Concrete Investment Account Saint Lucia;Concrete Investment Account Saint Lucia;User-centric;2020-04-19T13:54:09;Home Loan Account;approve
-2;Web virtual deposit;Web virtual deposit;Squares mint green e-business;2020-04-18T18:33:06;Home Loan Account;approve
-3;granular Direct contextually-based;granular Direct contextually-based;synergies copying;2020-04-18T19:05:34;Money Market Account;approve
-4;supply-chains magenta;supply-chains magenta;encompassing;2020-04-19T09:53:28;Personal Loan Account;approve
-5;Oklahoma facilitate;Oklahoma facilitate;Engineer;2020-04-18T16:39:06;Savings Account;approve
-6;capability zero tolerance Computers;capability zero tolerance Computers;Analyst paradigms;2020-04-19T14:57:25;Money Market Account;approve
-7;Lebanon;Lebanon;Designer Persistent;2020-04-18T23:37:08;Checking Account;approve
-8;invoice withdrawal;invoice withdrawal;bypassing optical;2020-04-19T12:07:58;Money Market Account;approve
-9;red firewall open-source;red firewall open-source;deposit Sausages;2020-04-18T23:10:04;Investment Account;approve
-10;bricks-and-clicks Concrete Global;bricks-and-clicks Concrete Global;Fiji Dollar Profound Bacon;2020-04-18T16:10:42;Home Loan Account;approve
+id;target_application;target_asset;target_identity;created;account_name;cert_decision;cert_group_id
+1;Cokpit;Administration;Nicolas LEBEC (c98847);2020-04-19T13:54:09;c98847;;1
+2;FXT;READ_ONLY;Nicolas LEBEC (c98847);2020-04-18T18:33:06;c98847;;1
+3;MBAW;ADMIN;Nicolas LEBEC (c98847);2020-04-18T19:05:34;c98847;;1
+4;CCIT;DEV;Nicolas LEBEC (c98847);2020-04-19T09:53:28;c98847;;1
+5;Mobimax;Bronze Profile;Nicolas LEBEC (c98847);2020-04-18T16:39:06;c98847;;1
+6;Mobimax;Intranet ONLY;Delphine MENJIKOFF(544947);2020-04-19T14:57:25;544947;;2
+7;Mobimax;Intranet ONLY;Delphine MENJIKOFF(544947);2020-04-18T23:37:08;544947;;2
+8;MBAW;ADMIN;Delphine MENJIKOFF(544947);2020-04-19T12:07:58;544947;;2
+9;MBAW;READ_ONLY;Delphine MENJIKOFF(544947);2020-04-18T23:10:04;544947;;2
+10;MBAW;Business Analyst;Delphine MENJIKOFF(544947);2020-04-18T16:10:42;544947;;2

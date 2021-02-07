@@ -48,8 +48,7 @@ public class CertificationItem implements Serializable {
     private String certDecision; 
   
     @ManyToOne
-    @JsonIgnoreProperties("certificationItems")
-    private CertificationGroup certItem;
+    private CertificationGroup certGroup;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -125,17 +124,17 @@ public class CertificationItem implements Serializable {
         this.status = status;
     }
 
-    public CertificationGroup getCertItem() {
-        return certItem;
+    public CertificationGroup getCertGroup() {
+        return certGroup;
     }
 
-    public CertificationItem certItem(CertificationGroup certificationGroup) {
-        this.certItem = certificationGroup;
+    public CertificationItem certGroup(CertificationGroup certificationGroup) {
+        this.certGroup = certificationGroup;
         return this;
     }
 
     public void setCertItem(CertificationGroup certificationGroup) {
-        this.certItem = certificationGroup;
+        this.certGroup = certificationGroup;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
