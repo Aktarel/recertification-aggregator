@@ -13,7 +13,7 @@ export class AccountService {
   private authenticated = false;
   private authenticationState = new Subject<any>();
 
-  constructor(private languageService: JhiLanguageService, private sessionStorage: SessionStorageService, private http: HttpClient) {}
+  constructor(private sessionStorage: SessionStorageService, private http: HttpClient) {}
 
   fetch(): Observable<HttpResponse<Account>> {
     return this.http.get<Account>(SERVER_API_URL + 'api/account', { observe: 'response' });
@@ -81,7 +81,7 @@ export class AccountService {
           // the user's preferred language configured in the account setting
           if (this.userIdentity.langKey) {
             const langKey = this.sessionStorage.retrieve('locale') || this.userIdentity.langKey;
-            this.languageService.changeLanguage(langKey);
+            //this.languageService.changeLanguage(langKey);
           }
         } else {
           this.userIdentity = null;

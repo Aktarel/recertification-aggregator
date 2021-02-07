@@ -70,11 +70,11 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
     } else {
       this.filterStatus.splice(indexOfStatus, 1);
     }
-
+    let searchStringAsArray = JSON.parse('[' + searchString + ']');
     this.filterPipe.transform(
       this.certificationItems,
       ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
-      searchString,
+      searchStringAsArray,
       this.filterStatus
     );
   }
@@ -139,11 +139,12 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
   }
   approveAll(searchString: string) {
     console.log('revokeAll');
+    let searchStringAsArray = JSON.parse('[' + searchString + ']');
     this.filterPipe
       .transform(
         this.certificationItems,
         ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
-        searchString,
+        searchStringAsArray,
         this.filterStatus
       )
       .forEach(element => {
@@ -157,11 +158,12 @@ export class CertificationItemComponent implements OnInit, OnDestroy {
   }
   revokeAll(searchString: string) {
     console.log('approveAll');
+    let searchStringAsArray = JSON.parse('[' + searchString + ']');
     this.filterPipe
       .transform(
         this.certificationItems,
         ['targetApplicationName', 'targetAsset', 'targetIdentity', 'accountName', 'certDecision'],
-        searchString,
+        searchStringAsArray,
         this.filterStatus
       )
       .forEach(element => {
