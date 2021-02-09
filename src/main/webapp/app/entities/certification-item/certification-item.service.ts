@@ -40,10 +40,10 @@ export class CertificationItemService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any, certGroupId: string): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<ICertificationItem[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<ICertificationItem[]>(this.resourceUrl + '/' + certGroupId, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

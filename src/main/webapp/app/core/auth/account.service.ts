@@ -113,4 +113,7 @@ export class AccountService {
   getImageUrl(): string {
     return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
   }
+  getAuthenticateUser(): string {
+    return this.isIdentityResolved() ? this.userIdentity.login : null;
+  }
 }

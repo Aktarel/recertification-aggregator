@@ -43,16 +43,32 @@ export class CertificationGroupComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    this.certificationGroupService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<ICertificationGroup[]>) => this.paginateCertificationGroups(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    let login = this.accountService.getAuthenticateUser();
+    let hasAuthority = this.accountService.hasAnyAuthority(['ROLE_ADMIN']);
+
+    if (hasAuthority) {
+      this.certificationGroupService
+        .query({
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe(
+          (res: HttpResponse<ICertificationGroup[]>) => this.paginateCertificationGroups(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    } else if (this.accountService.hasAnyAuthority(['ROLE_USER'])) {
+      this.certificationGroupService
+        .queryByLogin({
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe(
+          (res: HttpResponse<ICertificationGroup[]>) => this.paginateCertificationGroupsPerUid(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
   }
 
   reset() {
@@ -95,6 +111,13 @@ export class CertificationGroupComponent implements OnInit, OnDestroy {
   }
 
   protected paginateCertificationGroups(data: ICertificationGroup[], headers: HttpHeaders) {
+    this.links = this.parseLinks.parse(headers.get('link'));
+    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+    for (let i = 0; i < data.length; i++) {
+      this.certificationGroups.push(data[i]);
+    }
+  }
+  protected paginateCertificationGroupsPerUid(data: ICertificationGroup[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     for (let i = 0; i < data.length; i++) {

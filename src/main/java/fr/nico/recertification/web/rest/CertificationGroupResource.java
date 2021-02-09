@@ -1,29 +1,39 @@
 package fr.nico.recertification.web.rest;
 
-import fr.nico.recertification.domain.CertificationGroup;
-import fr.nico.recertification.repository.CertificationGroupRepository;
-import fr.nico.recertification.web.rest.errors.BadRequestAlertException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.List;
-import java.util.Optional;
+import fr.nico.recertification.domain.CertificationGroup;
+import fr.nico.recertification.repository.CertificationGroupRepository;
+import fr.nico.recertification.web.rest.errors.BadRequestAlertException;
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link fr.nico.recertification.domain.CertificationGroup}.
@@ -93,14 +103,22 @@ public class CertificationGroupResource {
      * @param uriBuilder a {@link UriComponentsBuilder} URI builder.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of certificationGroups in body.
      */
-    @GetMapping("/certification-groups")
+    @GetMapping("/certification-groups/all")
     public ResponseEntity<List<CertificationGroup>> getAllCertificationGroups(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
-        log.debug("REST request to get a page of CertificationGroups");
+    	log.debug("REST request to get a page of CertificationGroups");
         Page<CertificationGroup> page = certificationGroupRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
+    @GetMapping("/certification-groups")
+    public ResponseEntity<List<CertificationGroup>> getAllCertificationGroupsByLogin(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    	log.debug("REST request to get a page of CertificationGroupsByLogin");
+    	Authentication auth= SecurityContextHolder.getContext().getAuthentication();
+    	UserDetails principal= (UserDetails) ((UsernamePasswordAuthenticationToken)auth).getPrincipal(); 
+        Page<CertificationGroup> page = certificationGroupRepository.findAllByOwnerName(principal.getUsername(),pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
     /**
      * {@code GET  /certification-groups/:id} : get the "id" certificationGroup.
      *

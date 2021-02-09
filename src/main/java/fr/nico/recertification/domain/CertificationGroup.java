@@ -38,7 +38,7 @@ public class CertificationGroup implements Serializable {
 
     @Column(name = "status")
     private String status;
-
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -87,13 +87,17 @@ public class CertificationGroup implements Serializable {
         this.create = create;
     }
 
+    public CertificationGroup ownerName(String ownerName) {
+        this.ownerName = ownerName;
+        return this;
+    }
+
     public String getOwnerName() {
         return ownerName;
     }
 
-    public CertificationGroup ownerName(String ownerName) {
-        this.ownerName = ownerName;
-        return this;
+    public String getOwnerName(String ownerName) {
+        return ownerName;
     }
 
     public void setOwnerName(String ownerName) {
